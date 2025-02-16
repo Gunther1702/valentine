@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Day</title>
     <style>
-        
         body {
             text-align: center;
-            background-color: pink;
+            background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
             font-family: Arial, sans-serif;
             overflow: hidden;
         }
@@ -22,52 +21,35 @@
         .question {
             font-size: 24px;
             margin: 20px 0;
+            font-weight: bold;
         }
         .buttons {
             position: relative;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 40px; /* Space between buttons */
         }
         #yesBtn, #noBtn {
             font-size: 20px;
             padding: 10px 20px;
-            margin: 10px;
             border: none;
             cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
         }
         #yesBtn {
-            background: linear-gradient(to right, #ff758c, #ff7eb3); /* Pink gradient */
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
             color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 20px;
-            cursor: pointer;
-            border-radius: 10px; /* Rounded edges for a softer look */
-            transition: 0.3s;
         }
-
         #yesBtn:hover {
-            background: linear-gradient(to right, #ff7eb3, #ff758c); /* Reverse gradient on hover */
-            transform: scale(1.1); /* Slight zoom effect */
+            background: linear-gradient(to right, #ff7eb3, #ff758c);
+            transform: scale(1.1);
         }
-
         #noBtn {
-            background: linear-gradient(to right, #696667, #ff7eb3); /* Pink gradient */
+            background: linear-gradient(to right, #696667, #ff7eb3);
             color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 20px;
-            cursor: pointer;
-            border-radius: 10px; /* Rounded edges for a softer look */
-            transition: 0.3s;
+            position: relative; /* Fix: Keeps button aligned initially */
         }
-
-        #noBtn:hover {
-            background: linear-gradient(to right, #ff7eb3, #ff758c); /* Reverse gradient on hover */
-            transform: scale(1.1); /* Slight zoom effect */
-        }
-
         @keyframes floatHearts {
             0% { transform: translateY(0); }
             100% { transform: translateY(-100vh); }
@@ -82,8 +64,6 @@
 </head>
 <body>
     <div class="container">
-        
-        
         <img src="images/milk-and-mocha-love-unscreen.gif" alt="Bear Begging" class="bears">
         <img src="images/milk-and-mocha-puhleasee-unscreen.gif" alt="Bear Begging" class="bears" style="width: 300px;">
         <div class="question">Will you be my Valentine?</div>
@@ -95,22 +75,36 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const noBtn = document.getElementById("noBtn");
+
             function moveNoButton() {
-                let maxX = window.innerWidth * 0.5; 
-                let maxY = window.innerHeight * 0.5;
+                let maxX = window.innerWidth * 0.4; 
+                let maxY = window.innerHeight * 0.3;
                 let x = Math.random() * maxX;
                 let y = Math.random() * maxY;
+                
+                // Ensure the button stays in a visible area
+                let safeX = Math.max(50, Math.min(x, window.innerWidth - noBtn.offsetWidth - 50));
+                let safeY = Math.max(50, Math.min(y, window.innerHeight - noBtn.offsetHeight - 50));
+
                 noBtn.style.position = "absolute";
-                noBtn.style.left = `${x}px`;
-                noBtn.style.top = `${y}px`;
+                noBtn.style.left = `${safeX}px`;
+                noBtn.style.top = `${safeY}px`;
             }
-            setTimeout(() => {
-                noBtn.addEventListener("mouseover", moveNoButton);
-            }); 
+
+            // Move on hover (PC)
+            noBtn.addEventListener("mouseover", moveNoButton);
+
+            // Move on touch (Mobile)
+            noBtn.addEventListener("touchstart", (e) => {
+                e.preventDefault(); // Prevent default tap behavior
+                moveNoButton();
+            });
         });
+
         function goToNextPage() {
             window.location.href = "page2.html";
         }
+
         function createHeart() {
             const heart = document.createElement("div");
             heart.classList.add("heart");
@@ -120,6 +114,7 @@
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 5000);
         }
+
         setInterval(createHeart, 300);
     </script>
 </body>
