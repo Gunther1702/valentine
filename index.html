@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <style>
+        
+        body {
+            text-align: center;
+            background-color: pink;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            margin-top: 50px;
+        }
+        .bears {
+            width: 200px;
+        }
+        .question {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        .buttons {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        #yesBtn, #noBtn {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        #yesBtn {
+            background: linear-gradient(to right, #ff758c, #ff7eb3); /* Pink gradient */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 10px; /* Rounded edges for a softer look */
+            transition: 0.3s;
+        }
+
+        #yesBtn:hover {
+            background: linear-gradient(to right, #ff7eb3, #ff758c); /* Reverse gradient on hover */
+            transform: scale(1.1); /* Slight zoom effect */
+        }
+
+        #noBtn {
+            background: linear-gradient(to right, #696667, #ff7eb3); /* Pink gradient */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 10px; /* Rounded edges for a softer look */
+            transition: 0.3s;
+        }
+
+        #noBtn:hover {
+            background: linear-gradient(to right, #ff7eb3, #ff758c); /* Reverse gradient on hover */
+            transform: scale(1.1); /* Slight zoom effect */
+        }
+
+        @keyframes floatHearts {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100vh); }
+        }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 30px;
+            animation: floatHearts 5s infinite linear;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        
+        <img src="images/milk-and-mocha-love-unscreen.gif" alt="Bear Begging" class="bears">
+        <img src="images/milk-and-mocha-puhleasee-unscreen.gif" alt="Bear Begging" class="bears" style="width: 300px;">
+        <div class="question">Will you be my Valentine?</div>
+        <div class="buttons">
+            <button id="yesBtn" onclick="goToNextPage()">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const noBtn = document.getElementById("noBtn");
+            function moveNoButton() {
+                let maxX = window.innerWidth * 0.5; 
+                let maxY = window.innerHeight * 0.5;
+                let x = Math.random() * maxX;
+                let y = Math.random() * maxY;
+                noBtn.style.position = "absolute";
+                noBtn.style.left = `${x}px`;
+                noBtn.style.top = `${y}px`;
+            }
+            setTimeout(() => {
+                noBtn.addEventListener("mouseover", moveNoButton);
+            }); 
+        });
+        function goToNextPage() {
+            window.location.href = "page2.html";
+        }
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = window.innerHeight + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
